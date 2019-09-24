@@ -10,6 +10,8 @@ use Behat\Behat\Tester\Exception\PendingException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
+use PHPUnit\Framework\Assert;
+use Psr\Http\Message\ResponseInterface;
 
 final class AuthenticationContext implements Context
 {
@@ -26,15 +28,32 @@ final class AuthenticationContext implements Context
      */
     public function aUserRegistersWithTheWebsite(): void
     {
-        self::httpClient()->post(
+        $email = 'user@example.com';
+        $password = 'hallo123';
+
+        /** @var ResponseInterface $response */
+        $response = self::httpClient()->post(
             '/register.php',
             [
                 RequestOptions::FORM_PARAMS => [
-                    'emailAddress' => 'user@example.com',
-                    'password' => 'hallo123',
+                    'emailAddress' => $email,
+                    'password' => $password,
                 ],
             ]
         );
+
+        $contents = $response->getBody()->getContents();
+
+        $expected = \sprintf(
+            'Successfully registered as "%s"!',
+            $email
+        );
+
+        Assert::assertContains($expected, $contents, \sprintf(
+            'Failed asserting that user "%s" can register with password "%s".',
+            $email,
+            $password
+        ));
     }
 
     /**
@@ -42,7 +61,32 @@ final class AuthenticationContext implements Context
      */
     public function theUserCanLogIntoTheWebsite(): void
     {
-        throw new PendingException();
+        $email = 'user@example.com';
+        $password = 'hallo123';
+
+        /** @var ResponseInterface $response */
+        $response = self::httpClient()->post(
+            '/login.php',
+            [
+                RequestOptions::FORM_PARAMS => [
+                    'emailAddress' => $email,
+                    'password' => $password,
+                ],
+            ]
+        );
+
+        $contents = $response->getBody()->getContents();
+
+        $expected = \sprintf(
+            'Successfully logged in as "%s"!',
+            $email
+        );
+
+        Assert::assertContains($expected, $contents, \sprintf(
+            'Failed asserting that user "%s" can log in with password "%s".',
+            $email,
+            $password
+        ));
     }
 
     /**

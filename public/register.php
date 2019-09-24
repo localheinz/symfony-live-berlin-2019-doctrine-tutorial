@@ -2,12 +2,52 @@
 
 declare(strict_types=1);
 
-// registering a new user:
+$email = $_POST['emailAddress'];
+$password = $_POST['password'];
 
-// 1. check if a user with the same email address exists
-// 2. if not, create a user
-// 3. hash the password
-// 4. send the email to confirm activation (we will just display it)
-// 5. save the user
+$usersFile = __DIR__ . '/../data/users.json';
 
-// Tip: discuss - email or saving? Chicken-egg problem
+if (!\file_exists($usersFile)) {
+    return;
+}
+
+$contents = \file_get_contents($usersFile);
+
+$users = [];
+
+if (\is_string($contents)) {
+    $users = \json_decode(
+        $contents,
+        true
+    );
+
+    if (null === $users && \JSON_ERROR_NONE !== \json_last_error()) {
+        $users = [];
+    }
+}
+
+if (\array_key_exists($email, $users)) {
+    echo 'Already registered';
+
+    return;
+}
+
+$passwordHash = \password_hash(
+    $password,
+    \PASSWORD_DEFAULT
+);
+
+$users[$email] = $passwordHash;
+
+\file_put_contents(
+    $usersFile,
+    \json_encode(
+        $users,
+        \JSON_PRETTY_PRINT
+    )
+);
+
+echo \sprintf(
+    'Successfully registered as "%s"!',
+    $email
+);

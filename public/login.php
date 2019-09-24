@@ -2,12 +2,43 @@
 
 declare(strict_types=1);
 
-// 1. fetch user by email
-// 2. compare user password hash against given password
-// 3. is the user banned? (optional)
-// 4. log login (optional)
-// 5. store user identifier into the session
+$email = $_POST['emailAddress'];
+$password = $_POST['password'];
 
-// discuss: should the fetching by password happen at database level?
-//          Should it happen inside the entity?
-//          Or in a service?
+$usersFile = __DIR__ . '/../data/users.json';
+
+if (!\file_exists($usersFile)) {
+    return;
+}
+
+$contents = \file_get_contents($usersFile);
+
+if (false === $contents) {
+    return;
+}
+
+$users = \json_decode(
+    $contents,
+    true
+);
+
+if (!\array_key_exists($email, $users)) {
+    echo 'Login failed';
+
+    return;
+}
+
+if (!\password_verify($password, $users[$email])) {
+    echo 'Login failed';
+
+    return;
+}
+
+\session_start();
+
+$_SESSION['user'] = $email;
+
+echo \sprintf(
+    'Successfully logged in as "%s"!',
+    $email
+);
