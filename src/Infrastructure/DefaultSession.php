@@ -13,14 +13,24 @@ final class DefaultSession implements Session
     {
         self::start();
 
-        $_SESSION['user'] = $user->email();
+        $_SESSION['user'] = $user;
     }
 
-    public function isAuthenticated(): bool
+    public function authenticatedUser(): User
     {
         self::start();
 
-        return \array_key_exists('user', $_SESSION);
+        if (!\array_key_exists('user', $_SESSION)) {
+            throw new \BadMethodCallException('Currently no user is authenticated.');
+        }
+
+        $user = $_SESSION['user'];
+
+        if (!$user instanceof User) {
+            throw new \BadMethodCallException('Failed retrieving user from session.');
+        }
+
+        return $user;
     }
 
     private static function start(): void

@@ -10,5 +10,5 @@ interface Session
 {
     public function authenticate(User $user);
 
-    public function isAuthenticated(): bool;
+    public function authenticatedUser(): User;
 }
