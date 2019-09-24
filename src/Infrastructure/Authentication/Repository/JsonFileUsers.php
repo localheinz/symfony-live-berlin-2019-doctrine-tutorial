@@ -36,10 +36,10 @@ final class JsonFileUsers implements Users
     {
         $users = $this->loadUsersFromFile();
 
-        if (\array_key_exists($user->email(), $users)) {
+        if (\array_key_exists($user->email()->value(), $users)) {
             throw new \RuntimeException(\sprintf(
                 'User with email "%s" is already registered.',
-                $user->email()
+                $user->email()->value()
             ));
         }
 
