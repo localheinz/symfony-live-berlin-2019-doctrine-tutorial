@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Infrastructure\Authentication\Service\DefaultPasswordEncoder;
 use Infrastructure\StaticContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -25,7 +24,7 @@ if (!$users->isRegistered($email)) {
 
 $user = $users->get($email);
 
-$passwordEncoder = new DefaultPasswordEncoder();
+$passwordEncoder = $container->passwordEncoder();
 
 if (!$user->equalsHashedPassword($password, $passwordEncoder)) {
     echo \sprintf(

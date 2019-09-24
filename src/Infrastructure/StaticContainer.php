@@ -6,12 +6,19 @@ namespace Infrastructure;
 
 use Application\Container;
 use Domain\Authentication\Repository\Users;
+use Domain\Authentication\Service\PasswordEncoder;
 use Infrastructure\Authentication\Repository\JsonFileUsers;
+use Infrastructure\Authentication\Service\DefaultPasswordEncoder;
 
 final class StaticContainer implements Container
 {
     public function users(): Users
     {
         return new JsonFileUsers(__DIR__ . '/../../data/users.json');
+    }
+
+    public function passwordEncoder(): PasswordEncoder
+    {
+        return new DefaultPasswordEncoder();
     }
 }
