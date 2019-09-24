@@ -14,8 +14,6 @@ $container = new StaticContainer();
 
 $hashPassword = $container->hashPassword();
 
-$passwordHash = $hashPassword($password);
-
 $users = $container->users();
 
 if ($users->isRegistered($email)) {
@@ -26,7 +24,7 @@ if ($users->isRegistered($email)) {
 
 $user = new User(
     $email,
-    $passwordHash
+    $hashPassword($password)
 );
 
 $users->store($user);

@@ -24,9 +24,7 @@ if (!$users->isRegistered($email)) {
 
 $user = $users->get($email);
 
-$verifyPassword = $container->verifyPassword();
-
-if (!$user->equalsHashedPassword($password, $verifyPassword)) {
+if (!$user->equalsHashedPassword($password, $container->verifyPassword())) {
     echo \sprintf(
         'Failed logging in "%s"!',
         $email
