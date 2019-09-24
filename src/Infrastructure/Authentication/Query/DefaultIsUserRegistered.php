@@ -6,6 +6,7 @@ namespace Infrastructure\Authentication\Query;
 
 use Domain\Authentication\Query\IsUserRegistered;
 use Domain\Authentication\Repository\Users;
+use Domain\Authentication\Value\Email;
 
 final class DefaultIsUserRegistered implements IsUserRegistered
 {
@@ -16,7 +17,7 @@ final class DefaultIsUserRegistered implements IsUserRegistered
         $this->users = $users;
     }
 
-    public function __invoke(string $email): bool
+    public function __invoke(Email $email): bool
     {
         try {
             $this->users->get($email);

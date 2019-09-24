@@ -6,6 +6,7 @@ namespace Infrastructure\Authentication\Repository;
 
 use Domain\Authentication\Aggregate\User;
 use Domain\Authentication\Repository\Users;
+use Domain\Authentication\Value\Email;
 
 final class JsonFileUsers implements Users
 {
@@ -16,18 +17,18 @@ final class JsonFileUsers implements Users
         $this->path = $path;
     }
 
-    public function get(string $email): User
+    public function get(Email $email): User
     {
         $users = $this->loadUsersFromFile();
 
-        if (!\array_key_exists($email, $users)) {
+        if (!\array_key_exists($email->value(), $users)) {
             throw new \RuntimeException(\sprintf(
                 'User "%s" was not found.',
-                $email
+                $email->value()
             ));
         }
 
-        return $users[$email];
+        return $users[$email->value()];
     }
 
     public function store(User $user): void
@@ -72,7 +73,7 @@ final class JsonFileUsers implements Users
 
         return \array_map(static function (array $item): User {
             return User::unserializeFrom(
-                $item['email'],
+                new Email($item['email']),
                 $item['passwordHash'],
             );
         }, $data);
@@ -82,7 +83,7 @@ final class JsonFileUsers implements Users
     {
         $data = \array_combine(
             \array_map(static function (User $user): string {
-                return $user->email();
+                return $user->email()->value();
             }, $users),
             \array_map(static function (User $user): array {
                 return $user->toArray();

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Domain\Authentication\Value\Email;
 use Infrastructure\StaticContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -16,9 +17,10 @@ if (!$session->isAuthenticated()) {
     return;
 }
 
+/** @var Email $email */
 $email = $_SESSION['user'];
 
 echo \sprintf(
     'Successfully logged in as "%s"!',
-    $email
+    $email->value()
 );

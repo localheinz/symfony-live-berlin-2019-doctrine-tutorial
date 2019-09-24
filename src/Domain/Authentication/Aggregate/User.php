@@ -7,6 +7,7 @@ namespace Domain\Authentication\Aggregate;
 use Domain\Authentication\Query\IsUserRegistered;
 use Domain\Authentication\Service\HashPassword;
 use Domain\Authentication\Service\VerifyPassword;
+use Domain\Authentication\Value\Email;
 
 final class User
 {
@@ -14,7 +15,7 @@ final class User
 
     private $passwordHash;
 
-    private function __construct(string $email, string $passwordHash)
+    private function __construct(Email $email, string $passwordHash)
     {
         $this->email = $email;
         $this->passwordHash = $passwordHash;
@@ -23,7 +24,7 @@ final class User
     public static function register(
         IsUserRegistered $isUserRegistered,
         HashPassword $hashPassword,
-        string $email,
+        Email $email,
         string $password
     ): self {
         if ($isUserRegistered($email)) {
@@ -47,7 +48,7 @@ final class User
         );
     }
 
-    public static function unserializeFrom(string $email, string $passwordHash): self
+    public static function unserializeFrom(Email $email, string $passwordHash): self
     {
         return new self(
             $email,
@@ -55,7 +56,7 @@ final class User
         );
     }
 
-    public function email(): string
+    public function email(): Email
     {
         return $this->email;
     }
@@ -63,7 +64,7 @@ final class User
     public function toArray(): array
     {
         return [
-            'email' => $this->email,
+            'email' => $this->email->value(),
             'passwordHash' => $this->passwordHash,
         ];
     }

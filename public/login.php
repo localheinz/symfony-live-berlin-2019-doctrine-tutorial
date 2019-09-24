@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
+use Domain\Authentication\Value\Email;
 use Infrastructure\StaticContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$email = $_POST['emailAddress'];
+$email = new Email($_POST['emailAddress']);
 $password = $_POST['password'];
 
 $container = new StaticContainer();
@@ -16,7 +17,7 @@ try {
 } catch (\Exception $exception) {
     echo \sprintf(
         'Failed logging in "%s"!',
-        $email
+        $email->value()
     );
 
     return;
@@ -25,7 +26,7 @@ try {
 if (!$user->login($container->verifyPassword(), $password)) {
     echo \sprintf(
         'Failed logging in "%s"!',
-        $email
+        $email->value()
     );
 
     return;
@@ -35,5 +36,5 @@ $container->session()->authenticate($user);
 
 echo \sprintf(
     'Successfully logged in as "%s"!',
-    $user->email()
+    $user->email()->value()
 );

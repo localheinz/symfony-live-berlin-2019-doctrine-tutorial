@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 use Domain\Authentication\Aggregate\User;
+use Domain\Authentication\Value\Email;
 use Infrastructure\StaticContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $container = new StaticContainer();
 
-$email = $_POST['emailAddress'];
+$email = new Email($_POST['emailAddress']);
 $password = $_POST['password'];
 
 try {
@@ -29,5 +30,5 @@ $container->users()->store($user);
 
 echo \sprintf(
     'Successfully registered as "%s"!',
-    $email
+    $user->email()->value()
 );
