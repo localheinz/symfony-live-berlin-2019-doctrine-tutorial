@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Authentication\Repository;
+namespace Infrastructure\Authentication\Repository;
 
-use Authentication\Entity\User;
+use Domain\Authentication\Entity\User;
+use Domain\Authentication\Repository\Users;
 
 final class JsonFileUsers implements Users
 {

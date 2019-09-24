@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Authentication\Repository\JsonFileUsers;
+use Infrastructure\Authentication\Repository\JsonFileUsers;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

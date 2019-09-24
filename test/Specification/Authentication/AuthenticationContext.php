@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Test\Specification\Authentication;
 
-use Authentication\Entity;
 use Behat\Behat\Context\Context;
+use Domain\Authentication\Entity\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
@@ -177,7 +177,7 @@ final class AuthenticationContext implements Context
     }
 
     /**
-     * @return Entity\User[]
+     * @return User[]
      */
     private static function readUsers(): array
     {

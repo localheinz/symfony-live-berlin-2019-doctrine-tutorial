@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Authentication\Repository;
+namespace Domain\Authentication\Repository;
 
-use Authentication\Entity\User;
+use Domain\Authentication\Entity\User;
 
 interface Users
 {

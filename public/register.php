@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Authentication\Entity\User;
-use Authentication\Repository\JsonFileUsers;
+use Domain\Authentication\Entity\User;
+use Infrastructure\Authentication\Repository\JsonFileUsers;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

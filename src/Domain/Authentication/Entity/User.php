@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Authentication\Entity;
+namespace Domain\Authentication\Entity;
 
 final class User
 {
