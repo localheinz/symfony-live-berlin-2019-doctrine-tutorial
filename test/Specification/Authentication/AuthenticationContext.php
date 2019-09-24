@@ -24,6 +24,10 @@ final class AuthenticationContext implements Context
      */
     public function cleanDatabase(): void
     {
+        if (!\file_exists(self::usersFile())) {
+            return;
+        }
+
         \unlink(self::usersFile());
     }
 
