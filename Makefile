@@ -1,4 +1,4 @@
-.PHONY: help
+.PHONY: help it
 
 it: vendor ## Runs the vendor target
 
