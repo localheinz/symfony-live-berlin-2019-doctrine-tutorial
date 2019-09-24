@@ -25,8 +25,13 @@ final class Password
         $this->value = $value;
     }
 
-    public function value(): string
+    public function toHash(callable $callable): PasswordHash
     {
-        return $this->value;
+        return $callable($this->value);
+    }
+
+    public function verify(callable $callable): bool
+    {
+        return $callable($this->value);
     }
 }

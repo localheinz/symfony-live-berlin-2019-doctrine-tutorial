@@ -12,9 +12,11 @@ final class DefaultVerifyPassword implements VerifyPassword
 {
     public function __invoke(Password $password, PasswordHash $passwordHash): bool
     {
-        return \password_verify(
-            $password->value(),
-            $passwordHash->value()
-        );
+        return $password->verify(static function (string $value) use ($passwordHash): bool {
+            return \password_verify(
+                $value,
+                $passwordHash->value()
+            );
+        });
     }
 }

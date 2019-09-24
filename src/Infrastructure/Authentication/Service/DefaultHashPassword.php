@@ -12,15 +12,17 @@ final class DefaultHashPassword implements HashPassword
 {
     public function __invoke(Password $password): PasswordHash
     {
-        $value = \password_hash(
-            $password->value(),
-            \PASSWORD_DEFAULT
-        );
+        return $password->toHash(static function (string $value): PasswordHash {
+            $hashedValue = \password_hash(
+                $value,
+                \PASSWORD_DEFAULT
+            );
 
-        if (!\is_string($value)) {
-            throw new \RuntimeException('Unable to hash password.');
-        }
+            if (!\is_string($hashedValue)) {
+                throw new \RuntimeException('Unable to hash password.');
+            }
 
-        return new PasswordHash($value);
+            return new PasswordHash($hashedValue);
+        });
     }
 }
