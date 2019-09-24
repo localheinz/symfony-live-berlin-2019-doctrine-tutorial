@@ -18,6 +18,12 @@ final class DefaultIsUserRegistered implements IsUserRegistered
 
     public function __invoke(string $email): bool
     {
-        return $this->users->isRegistered($email);
+        try {
+            $this->users->get($email);
+        } catch (\RuntimeException $exception) {
+            return false;
+        }
+
+        return true;
     }
 }

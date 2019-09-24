@@ -46,17 +46,6 @@ final class JsonFileUsers implements Users
         $this->writeUsersToFile($users);
     }
 
-    public function isRegistered(string $email): bool
-    {
-        try {
-            $this->get($email);
-        } catch (\RuntimeException $exception) {
-            return false;
-        }
-
-        return true;
-    }
-
     /**
      * @return User[]
      */
