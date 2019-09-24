@@ -21,9 +21,12 @@ final class User
         return $this->email;
     }
 
-    public function passwordHash(): string
+    public function passwordEquals(string $password): bool
     {
-        return $this->passwordHash;
+        return \password_verify(
+            $password,
+            $this->passwordHash
+        );
     }
 
     public function toArray(): array

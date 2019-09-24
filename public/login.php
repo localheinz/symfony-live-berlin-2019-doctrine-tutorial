@@ -22,7 +22,7 @@ if (!$users->isRegistered($email)) {
 
 $user = $users->get($email);
 
-if (!\password_verify($password, $user->passwordHash())) {
+if (!$user->passwordEquals($password)) {
     echo \sprintf(
         'Failed logging in "%s"!',
         $email
