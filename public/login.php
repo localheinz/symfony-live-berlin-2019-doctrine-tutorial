@@ -12,7 +12,10 @@ $password = $_POST['password'];
 $users = new JsonFileUsers(__DIR__ . '/../data/users.json');
 
 if (!$users->isRegistered($email)) {
-    echo 'Login failed';
+    echo \sprintf(
+        'Failed logging in "%s"!',
+        $email
+    );
 
     return;
 }
@@ -20,7 +23,10 @@ if (!$users->isRegistered($email)) {
 $user = $users->get($email);
 
 if (!\password_verify($password, $user->passwordHash())) {
-    echo 'Login failed';
+    echo \sprintf(
+        'Failed logging in "%s"!',
+        $email
+    );
 
     return;
 }

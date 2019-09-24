@@ -6,7 +6,6 @@ namespace Test\Specification\Authentication;
 
 use Authentication\Entity;
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
@@ -133,7 +132,32 @@ final class AuthenticationContext implements Context
      */
     public function theUserCannotLogIntoTheWebsiteWithANonMatchingPassword(): void
     {
-        throw new PendingException();
+        $email = 'user@example.com';
+        $password = 'password123';
+
+        /** @var ResponseInterface $response */
+        $response = self::httpClient()->post(
+            '/login.php',
+            [
+                RequestOptions::FORM_PARAMS => [
+                    'emailAddress' => $email,
+                    'password' => $password,
+                ],
+            ]
+        );
+
+        $contents = $response->getBody()->getContents();
+
+        $expected = \sprintf(
+            'Failed logging in "%s"!',
+            $email
+        );
+
+        Assert::assertContains($expected, $contents, \sprintf(
+            'Failed asserting that user "%s" cannot log in with password "%s".',
+            $email,
+            $password
+        ));
     }
 
     private static function usersFile(): string
