@@ -21,6 +21,14 @@ final class AuthenticationContext implements Context
     private static $httpClient;
 
     /**
+     * @BeforeScenario
+     */
+    public function cleanDatabase(): void
+    {
+        \unlink(self::usersFile());
+    }
+
+    /**
      * @Given there are no registered users
      */
     public function thereAreNoRegisteredUsers(): void
@@ -117,7 +125,7 @@ final class AuthenticationContext implements Context
      */
     public function thereIsARegisteredUser(): void
     {
-        throw new PendingException();
+        $this->aUserRegistersWithTheWebsite();
     }
 
     /**
