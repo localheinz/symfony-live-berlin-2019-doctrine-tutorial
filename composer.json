@@ -1,6 +1,6 @@
 {
     "name": "localheinz/symfony-live-berlin-2019-doctrine-tutorial",
-    "description": "An application used for Marco Pivettas workshop during SymfonyLive 2019 in Berlin.",
+    "description": "An application used for Marco Pivetta's workshop during SymfonyLive 2019 in Berlin.",
     "license": "MIT",
     "require": {
         "php": "^7.3",
