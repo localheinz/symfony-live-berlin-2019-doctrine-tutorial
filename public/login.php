@@ -39,7 +39,7 @@ $session = $container->session();
 
 $session->start();
 
-$_SESSION['user'] = $email;
+$session->authenticate($user);
 
 echo \sprintf(
     'Successfully logged in as "%s"!',
