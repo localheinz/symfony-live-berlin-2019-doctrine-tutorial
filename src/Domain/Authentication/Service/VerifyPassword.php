@@ -6,5 +6,5 @@ namespace Domain\Authentication\Service;
 
 interface VerifyPassword
 {
-    public function equals(string $password, string $passwordHash): bool;
+    public function __invoke(string $password, string $passwordHash): bool;
 }

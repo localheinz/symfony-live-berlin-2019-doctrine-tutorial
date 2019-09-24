@@ -6,5 +6,5 @@ namespace Domain\Authentication\Service;
 
 interface HashPassword
 {
-    public function encode(string $password): string;
+    public function __invoke(string $password): string;
 }

@@ -14,7 +14,7 @@ $container = new StaticContainer();
 
 $hashPassword = $container->hashPassword();
 
-$passwordHash = $hashPassword->encode($password);
+$passwordHash = $hashPassword($password);
 
 $users = $container->users();
 

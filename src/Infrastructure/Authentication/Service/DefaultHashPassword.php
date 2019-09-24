@@ -8,7 +8,7 @@ use Domain\Authentication\Service\HashPassword;
 
 final class DefaultHashPassword implements HashPassword
 {
-    public function encode(string $password): string
+    public function __invoke(string $password): string
     {
         return \password_hash(
             $password,

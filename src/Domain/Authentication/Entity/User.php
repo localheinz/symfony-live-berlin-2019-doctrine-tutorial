@@ -25,7 +25,7 @@ final class User
 
     public function equalsHashedPassword(string $password, VerifyPassword $verifyPassword): bool
     {
-        return $verifyPassword->equals(
+        return $verifyPassword(
             $password,
             $this->passwordHash
         );
