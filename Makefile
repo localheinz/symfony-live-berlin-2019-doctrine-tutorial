@@ -8,10 +8,11 @@ help: ## Displays this list of targets with descriptions
 run: vendor ## Serves the application
 	php -S localhost:8080 -t public
 
-test: vendor ## Runs unit and integration tests with phpunit
+test: vendor ## Runs unit and integration tests with phpunit, as well as specifications with behat
 	mkdir -p .build/phpunit
 	vendor/bin/phpunit --configuration=test/Unit/phpunit.xml
 	vendor/bin/phpunit --configuration=test/Integration/phpunit.xml
+	vendor/bin/behat
 
 vendor: composer.json composer.lock ## Installs dependencies with composer
 	composer validate --strict
