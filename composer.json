@@ -31,9 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\Integration\\": "test/Integration",
-            "Test\\Specification\\": "test/Specification",
-            "Test\\Unit\\": "test/Unit"
+            "Test\\": "test/"
         }
     }
 }
