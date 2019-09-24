@@ -11,7 +11,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $container = new DefaultContainer();
 
-$email = new Email($_POST['emailAddress']);
+$email = Email::fromString($_POST['emailAddress']);
 $password = new Password($_POST['password']);
 
 try {

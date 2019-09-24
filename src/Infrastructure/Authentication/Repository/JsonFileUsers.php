@@ -74,7 +74,7 @@ final class JsonFileUsers implements Users
 
         return \array_map(static function (array $item): User {
             return User::unserializeFrom(
-                new Email($item['email']),
+                Email::fromString($item['email']),
                 new PasswordHash($item['passwordHash'])
             );
         }, $data);

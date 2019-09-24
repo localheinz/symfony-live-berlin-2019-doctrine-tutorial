@@ -8,12 +8,17 @@ final class Email
 {
     private $value;
 
+    private function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+
     /**
      * @param string $value
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $value)
+    public static function fromString(string $value): self
     {
         if (false === \filter_var($value, \FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException(\sprintf(
@@ -22,7 +27,7 @@ final class Email
             ));
         }
 
-        $this->value = $value;
+        return new self($value);
     }
 
     public function value(): string
