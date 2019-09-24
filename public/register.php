@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Domain\Authentication\Aggregate\User;
 use Domain\Authentication\Value\Email;
+use Domain\Authentication\Value\Password;
 use Infrastructure\DefaultContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -11,7 +12,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $container = new DefaultContainer();
 
 $email = new Email($_POST['emailAddress']);
-$password = $_POST['password'];
+$password = new Password($_POST['password']);
 
 try {
     $user = User::register(

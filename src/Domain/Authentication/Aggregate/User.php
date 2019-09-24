@@ -8,6 +8,7 @@ use Domain\Authentication\Query\IsUserRegistered;
 use Domain\Authentication\Service\HashPassword;
 use Domain\Authentication\Service\VerifyPassword;
 use Domain\Authentication\Value\Email;
+use Domain\Authentication\Value\Password;
 
 final class User
 {
@@ -25,7 +26,7 @@ final class User
         IsUserRegistered $isUserRegistered,
         HashPassword $hashPassword,
         Email $email,
-        string $password
+        Password $password
     ): self {
         if ($isUserRegistered($email)) {
             throw new \RuntimeException(\sprintf(
@@ -40,7 +41,7 @@ final class User
         );
     }
 
-    public function login(VerifyPassword $verifyPassword, string $password): bool
+    public function login(VerifyPassword $verifyPassword, Password $password): bool
     {
         return $verifyPassword(
             $password,

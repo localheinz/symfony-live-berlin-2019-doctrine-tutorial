@@ -3,12 +3,13 @@
 declare(strict_types=1);
 
 use Domain\Authentication\Value\Email;
+use Domain\Authentication\Value\Password;
 use Infrastructure\DefaultContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $email = new Email($_POST['emailAddress']);
-$password = $_POST['password'];
+$password = new Password($_POST['password']);
 
 $container = new DefaultContainer();
 

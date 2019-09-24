@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Infrastructure\Authentication\Service;
 
 use Domain\Authentication\Service\HashPassword;
+use Domain\Authentication\Value\Password;
 
 final class DefaultHashPassword implements HashPassword
 {
-    public function __invoke(string $password): string
+    public function __invoke(Password $password): string
     {
         return \password_hash(
-            $password,
+            $password->value(),
             \PASSWORD_DEFAULT
         );
     }
