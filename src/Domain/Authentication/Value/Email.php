@@ -15,7 +15,7 @@ final class Email
      */
     public function __construct(string $value)
     {
-        if (!\filter_var($value, \FILTER_VALIDATE_EMAIL)) {
+        if (false === \filter_var($value, \FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Value "%s" does not appear to be a valid email address.',
                 $value
