@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Test\Specification\Authentication;
 
+use Authentication\Entity;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
 
@@ -22,7 +23,11 @@ final class AuthenticationContext implements Context
      */
     public function aUserRegistersWithTheWebsite(): void
     {
-        throw new PendingException();
+        $users = self::readUsers();
+
+        $users[] = new Entity\User('user@example.com');
+
+        self::writeUsers($users);
     }
 
     /**
@@ -60,5 +65,23 @@ final class AuthenticationContext implements Context
             self::usersFile(),
             \serialize($users)
         );
+    }
+
+    /**
+     * @return Entity\User[]
+     */
+    private static function readUsers(): array
+    {
+        if (!\file_exists(self::usersFile())) {
+            return [];
+        }
+
+        $contents = \file_get_contents(self::usersFile());
+
+        if (false === $contents) {
+            return [];
+        }
+
+        return \unserialize($contents);
     }
 }
