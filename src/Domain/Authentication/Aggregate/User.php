@@ -32,7 +32,7 @@ final class User
         if ($isUserRegistered($email)) {
             throw new \RuntimeException(\sprintf(
                 'User with email "%s" has already been registered.',
-                $email
+                $email->value()
             ));
         }
 
