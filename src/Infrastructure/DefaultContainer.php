@@ -15,7 +15,7 @@ use Infrastructure\Authentication\Repository\JsonFileUsers;
 use Infrastructure\Authentication\Service\DefaultHashPassword;
 use Infrastructure\Authentication\Service\DefaultVerifyPassword;
 
-final class StaticContainer implements Container
+final class DefaultContainer implements Container
 {
     public function users(): Users
     {

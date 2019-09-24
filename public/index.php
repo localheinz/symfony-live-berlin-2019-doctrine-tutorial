@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Infrastructure\StaticContainer;
+use Infrastructure\DefaultContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$container = new StaticContainer();
+$container = new DefaultContainer();
 
 $session = $container->session();
 

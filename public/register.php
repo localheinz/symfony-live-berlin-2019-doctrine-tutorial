@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use Domain\Authentication\Aggregate\User;
 use Domain\Authentication\Value\Email;
-use Infrastructure\StaticContainer;
+use Infrastructure\DefaultContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$container = new StaticContainer();
+$container = new DefaultContainer();
 
 $email = new Email($_POST['emailAddress']);
 $password = $_POST['password'];
