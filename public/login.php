@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Infrastructure\Authentication\Repository\JsonFileUsers;
+use Infrastructure\Authentication\Service\DefaultPasswordEncoder;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -22,7 +23,9 @@ if (!$users->isRegistered($email)) {
 
 $user = $users->get($email);
 
-if (!$user->passwordEquals($password)) {
+$passwordEncoder = new DefaultPasswordEncoder();
+
+if (!$user->equalsHashedPassword($password, $passwordEncoder)) {
     echo \sprintf(
         'Failed logging in "%s"!',
         $email
