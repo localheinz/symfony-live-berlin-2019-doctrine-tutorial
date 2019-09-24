@@ -7,6 +7,9 @@ namespace Test\Specification\Authentication;
 use Authentication\Entity;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\RequestOptions;
 
 final class AuthenticationContext implements Context
 {
@@ -23,17 +26,15 @@ final class AuthenticationContext implements Context
      */
     public function aUserRegistersWithTheWebsite(): void
     {
-        $users = self::readUsers();
-
-        $users[] = [
-            'email' => 'user@example.com',
-            'password' => \password_hash(
-                'hallo123',
-                \PASSWORD_DEFAULT
-            ),
-        ];
-
-        self::writeUsers($users);
+        self::httpClient()->post(
+            '/register.php',
+            [
+                RequestOptions::FORM_PARAMS => [
+                    'emailAddress' => 'user@example.com',
+                    'password' => 'hallo123',
+                ],
+            ]
+        );
     }
 
     /**
@@ -98,5 +99,12 @@ final class AuthenticationContext implements Context
         }
 
         return $users;
+    }
+
+    private static function httpClient(): ClientInterface
+    {
+        return new Client([
+            'base_uri' => 'http://localhost:8080',
+        ]);
     }
 }
