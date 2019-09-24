@@ -22,7 +22,7 @@ final class DefaultHashPassword implements HashPassword
                 throw new \RuntimeException('Unable to hash password.');
             }
 
-            return new PasswordHash($hashedValue);
+            return PasswordHash::fromString($hashedValue);
         });
     }
 }
