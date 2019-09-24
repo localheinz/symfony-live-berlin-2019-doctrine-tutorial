@@ -60,14 +60,6 @@ final class User
         return $this->email;
     }
 
-    public function equalsHashedPassword(string $password, VerifyPassword $verifyPassword): bool
-    {
-        return $verifyPassword(
-            $password,
-            $this->passwordHash
-        );
-    }
-
     public function toArray(): array
     {
         return [
