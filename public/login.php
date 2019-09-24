@@ -35,7 +35,9 @@ if (!$user->equalsHashedPassword($password, $passwordEncoder)) {
     return;
 }
 
-\session_start();
+$session = $container->session();
+
+$session->start();
 
 $_SESSION['user'] = $email;
 

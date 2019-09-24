@@ -12,4 +12,6 @@ interface Container
     public function users(): Users;
 
     public function passwordEncoder(): PasswordEncoder;
+
+    public function session(): Session;
 }
