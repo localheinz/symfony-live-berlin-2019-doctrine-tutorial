@@ -9,6 +9,7 @@ use Domain\Authentication\Service\HashPassword;
 use Domain\Authentication\Service\VerifyPassword;
 use Domain\Authentication\Value\Email;
 use Domain\Authentication\Value\Password;
+use Domain\Authentication\Value\PasswordHash;
 
 final class User
 {
@@ -16,7 +17,7 @@ final class User
 
     private $passwordHash;
 
-    private function __construct(Email $email, string $passwordHash)
+    private function __construct(Email $email, PasswordHash $passwordHash)
     {
         $this->email = $email;
         $this->passwordHash = $passwordHash;
@@ -49,7 +50,7 @@ final class User
         );
     }
 
-    public static function unserializeFrom(Email $email, string $passwordHash): self
+    public static function unserializeFrom(Email $email, PasswordHash $passwordHash): self
     {
         return new self(
             $email,
@@ -66,7 +67,7 @@ final class User
     {
         return [
             'email' => $this->email->value(),
-            'passwordHash' => $this->passwordHash,
+            'passwordHash' => $this->passwordHash->value(),
         ];
     }
 }

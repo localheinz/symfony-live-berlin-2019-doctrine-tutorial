@@ -7,6 +7,7 @@ namespace Infrastructure\Authentication\Repository;
 use Domain\Authentication\Aggregate\User;
 use Domain\Authentication\Repository\Users;
 use Domain\Authentication\Value\Email;
+use Domain\Authentication\Value\PasswordHash;
 
 final class JsonFileUsers implements Users
 {
@@ -74,7 +75,7 @@ final class JsonFileUsers implements Users
         return \array_map(static function (array $item): User {
             return User::unserializeFrom(
                 new Email($item['email']),
-                $item['passwordHash'],
+                new PasswordHash($item['passwordHash'])
             );
         }, $data);
     }
