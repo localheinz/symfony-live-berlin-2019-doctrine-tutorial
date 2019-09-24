@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Authentication\Repository;
 
-use Domain\Authentication\Entity\User;
+use Domain\Authentication\Aggregate\User;
 
 interface Users
 {

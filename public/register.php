@@ -2,34 +2,30 @@
 
 declare(strict_types=1);
 
-use Domain\Authentication\Entity\User;
+use Domain\Authentication\Aggregate\User;
 use Infrastructure\StaticContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$container = new StaticContainer();
+
 $email = $_POST['emailAddress'];
 $password = $_POST['password'];
 
-$container = new StaticContainer();
-
-$hashPassword = $container->hashPassword();
-
-$isUserRegistered = $container->isUserRegistered();
-
-if ($isUserRegistered($email)) {
+try {
+    $user = User::register(
+        $container->isUserRegistered(),
+        $container->hashPassword(),
+        $email,
+        $password
+    );
+} catch (\Exception $exception) {
     echo 'Already registered';
 
     return;
 }
 
-$user = new User(
-    $email,
-    $hashPassword($password)
-);
-
-$users = $container->users();
-
-$users->store($user);
+$container->users()->store($user);
 
 echo \sprintf(
     'Successfully registered as "%s"!',

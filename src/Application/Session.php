@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application;
 
-use Domain\Authentication\Entity\User;
+use Domain\Authentication\Aggregate\User;
 
 interface Session
 {

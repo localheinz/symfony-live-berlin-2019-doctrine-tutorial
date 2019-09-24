@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Infrastructure;
 
 use Application\Session;
-use Domain\Authentication\Entity\User;
+use Domain\Authentication\Aggregate\User;
 
 final class DefaultSession implements Session
 {

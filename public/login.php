@@ -11,11 +11,9 @@ $password = $_POST['password'];
 
 $container = new StaticContainer();
 
-$users = $container->users();
-
-$isUserRegistered = $container->isUserRegistered();
-
-if (!$isUserRegistered($email)) {
+try {
+    $user = $container->users()->get($email);
+} catch (\Exception $exception) {
     echo \sprintf(
         'Failed logging in "%s"!',
         $email
@@ -24,9 +22,7 @@ if (!$isUserRegistered($email)) {
     return;
 }
 
-$user = $users->get($email);
-
-if (!$user->equalsHashedPassword($password, $container->verifyPassword())) {
+if (!$user->login($container->verifyPassword(), $password)) {
     echo \sprintf(
         'Failed logging in "%s"!',
         $email
@@ -35,11 +31,9 @@ if (!$user->equalsHashedPassword($password, $container->verifyPassword())) {
     return;
 }
 
-$session = $container->session();
-
-$session->authenticate($user);
+$container->session()->authenticate($user);
 
 echo \sprintf(
     'Successfully logged in as "%s"!',
-    $email
+    $user->email()
 );
