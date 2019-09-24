@@ -204,7 +204,7 @@ final class AuthenticationContext implements Context
         return $users;
     }
 
-    private static function httpClient(): ClientInterface
+    private static function httpClient(): Client
     {
         if (null === self::$httpClient) {
             self::$httpClient = new Client([
