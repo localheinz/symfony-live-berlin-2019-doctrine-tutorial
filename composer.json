@@ -1,4 +1,3 @@
-
 {
     "name": "localheinz/symfony-live-berlin-2019-doctrine-tutorial",
     "description": "An application used for Marco Pivettas workshop during SymfonyLive 2019 in Berlin.",
@@ -17,7 +16,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^7.1.5",
-        "behat/behat": "^3.4.3"
+        "behat/behat": "^3.4.3",
+        "localheinz/composer-normalize": "^1.3.0"
     },
     "autoload-dev": {
         "psr-4": {
