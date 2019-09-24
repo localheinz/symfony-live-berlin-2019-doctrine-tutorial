@@ -25,10 +25,13 @@ final class AuthenticationContext implements Context
     {
         $users = self::readUsers();
 
-        $users[] = new Entity\User(
-            'user@example.com',
-            'super-secret-password'
-        );
+        $users[] = [
+            'email' => 'user@example.com',
+            'password' => \password_hash(
+                'hallo123',
+                \PASSWORD_DEFAULT
+            ),
+        ];
 
         self::writeUsers($users);
     }
@@ -59,14 +62,17 @@ final class AuthenticationContext implements Context
 
     private static function usersFile(): string
     {
-        return __DIR__ . '/../../../data/users.txt';
+        return __DIR__ . '/../../../data/users.json';
     }
 
     private static function writeUsers(array $users): void
     {
         \file_put_contents(
             self::usersFile(),
-            \serialize($users)
+            \json_encode(
+                $users,
+                \JSON_PRETTY_PRINT
+            )
         );
     }
 
@@ -85,6 +91,12 @@ final class AuthenticationContext implements Context
             return [];
         }
 
-        return \unserialize($contents);
+        $users = \json_decode($contents);
+
+        if (null === $users && \JSON_ERROR_NONE !== \json_last_error()) {
+            return [];
+        }
+
+        return $users;
     }
 }
