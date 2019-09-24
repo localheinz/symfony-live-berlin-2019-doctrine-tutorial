@@ -9,7 +9,7 @@ use Infrastructure\DefaultContainer;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $email = Email::fromString($_POST['emailAddress']);
-$password = new Password($_POST['password']);
+$password = Password::fromString($_POST['password']);
 
 $container = new DefaultContainer();
 

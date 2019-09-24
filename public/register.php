@@ -12,7 +12,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $container = new DefaultContainer();
 
 $email = Email::fromString($_POST['emailAddress']);
-$password = new Password($_POST['password']);
+$password = Password::fromString($_POST['password']);
 
 try {
     $user = User::register(
