@@ -1,6 +1,6 @@
-.PHONY: cs help it layer run test
+.PHONY: cs help it layer run stan test
 
-it: cs layer test  ## Runs the test target
+it: cs layer stan test  ## Runs the cs, layer, stan, and test targets
 
 cs: vendor ## Fixes code style issues with php-cs-fixer
 	mkdir -p .build/php-cs-fixer
@@ -15,6 +15,10 @@ layer: vendor ## Runs a dependency analysis with deptrac
 
 run: vendor ## Serves the application
 	php -S localhost:8080 -t public
+
+stan: vendor ## Runs a static analysis with phpstan
+	mkdir -p .build/phpstan
+	vendor/bin/phpstan analyse --configuration=phpstan.neon
 
 test: vendor ## Runs unit and integration tests with phpunit, as well as specifications with behat
 	mkdir -p .build/phpunit
