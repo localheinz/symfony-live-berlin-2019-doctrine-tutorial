@@ -37,8 +37,6 @@ if (!$user->equalsHashedPassword($password, $container->verifyPassword())) {
 
 $session = $container->session();
 
-$session->start();
-
 $session->authenticate($user);
 
 echo \sprintf(

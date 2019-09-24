@@ -10,8 +10,6 @@ $container = new StaticContainer();
 
 $session = $container->session();
 
-$session->start();
-
 if (!$session->isAuthenticated()) {
     echo 'You are currently not logged in.';
 
