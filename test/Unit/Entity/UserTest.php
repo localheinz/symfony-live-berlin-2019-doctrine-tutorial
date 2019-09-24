@@ -19,7 +19,7 @@ final class UserTest extends Framework\TestCase
 
     public function testConstructorSetsValues(): void
     {
-        $faker = self::faker();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $password = $faker->sha1;
