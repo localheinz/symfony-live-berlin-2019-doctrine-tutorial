@@ -14,9 +14,9 @@ $container = new StaticContainer();
 
 $hashPassword = $container->hashPassword();
 
-$users = $container->users();
+$isUserRegistered = $container->isUserRegistered();
 
-if ($users->isRegistered($email)) {
+if ($isUserRegistered($email)) {
     echo 'Already registered';
 
     return;
@@ -26,6 +26,8 @@ $user = new User(
     $email,
     $hashPassword($password)
 );
+
+$users = $container->users();
 
 $users->store($user);
 

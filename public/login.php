@@ -13,7 +13,9 @@ $container = new StaticContainer();
 
 $users = $container->users();
 
-if (!$users->isRegistered($email)) {
+$isUserRegistered = $container->isUserRegistered();
+
+if (!$isUserRegistered($email)) {
     echo \sprintf(
         'Failed logging in "%s"!',
         $email
