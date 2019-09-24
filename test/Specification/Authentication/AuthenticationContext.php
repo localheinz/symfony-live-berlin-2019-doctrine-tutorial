@@ -4,19 +4,26 @@ declare(strict_types=1);
 
 namespace Test\Specification\Authentication;
 
+use Application\Container;
 use Behat\Behat\Context\Context;
 use Domain\Authentication\Aggregate\User;
-use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
+use Domain\Authentication\Repository\Users;
+use Domain\Authentication\Value\Email;
+use Domain\Authentication\Value\Password;
+use Infrastructure\DefaultContainer;
 use PHPUnit\Framework\Assert;
-use Psr\Http\Message\ResponseInterface;
 
 final class AuthenticationContext implements Context
 {
     /**
-     * @var null|Client
+     * @var Container
      */
-    private static $httpClient;
+    private $container;
+
+    public function __construct()
+    {
+        $this->container = new DefaultContainer();
+    }
 
     /**
      * @BeforeScenario
@@ -43,32 +50,14 @@ final class AuthenticationContext implements Context
      */
     public function aUserRegistersWithTheWebsite(): void
     {
-        $email = 'user@example.com';
-        $password = 'hallo123';
-
-        /** @var ResponseInterface $response */
-        $response = self::httpClient()->post(
-            '/register.php',
-            [
-                RequestOptions::FORM_PARAMS => [
-                    'emailAddress' => $email,
-                    'password' => $password,
-                ],
-            ]
+        $user = User::register(
+            $this->container->isUserRegistered(),
+            $this->container->hashPassword(),
+            Email::fromString('user@example.com'),
+            Password::fromString('hallo123')
         );
 
-        $contents = $response->getBody()->getContents();
-
-        $expected = \sprintf(
-            'Successfully registered as "%s"!',
-            $email
-        );
-
-        Assert::assertContains($expected, $contents, \sprintf(
-            'Failed asserting that user "%s" can register with password "%s".',
-            $email,
-            $password
-        ));
+        $this->container->users()->store($user);
     }
 
     /**
@@ -76,49 +65,11 @@ final class AuthenticationContext implements Context
      */
     public function theUserCanLogIntoTheWebsite(): void
     {
-        $email = 'user@example.com';
-        $password = 'hallo123';
+        $user = $this->container->users()->get(Email::fromString('user@example.com'));
 
-        /** @var ResponseInterface $response */
-        $response = self::httpClient()->post(
-            '/login.php',
-            [
-                RequestOptions::FORM_PARAMS => [
-                    'emailAddress' => $email,
-                    'password' => $password,
-                ],
-            ]
-        );
-
-        $contents = $response->getBody()->getContents();
-
-        $expected = \sprintf(
-            'Successfully logged in as "%s"!',
-            $email
-        );
-
-        Assert::assertContains($expected, $contents, \sprintf(
-            'Failed asserting that user "%s" can log in with password "%s".',
-            $email,
-            $password
-        ));
-
-        $email = 'user@example.com';
-
-        /** @var ResponseInterface $response */
-        $response = self::httpClient()->get('/index.php');
-
-        $contents = $response->getBody()->getContents();
-
-        $expected = \sprintf(
-            'Successfully logged in as "%s"!',
-            $email
-        );
-
-        Assert::assertContains($expected, $contents, \sprintf(
-            'Failed asserting that user "%s" can log in with password "%s".',
-            $email,
-            $password
+        Assert::assertTrue($user->login(
+            $this->container->verifyPassword(),
+            Password::fromString('hallo123')
         ));
     }
 
@@ -135,31 +86,11 @@ final class AuthenticationContext implements Context
      */
     public function theUserCannotLogIntoTheWebsiteWithANonMatchingPassword(): void
     {
-        $email = 'user@example.com';
-        $password = 'password123';
+        $user = $this->container->users()->get(Email::fromString('user@example.com'));
 
-        /** @var ResponseInterface $response */
-        $response = self::httpClient()->post(
-            '/login.php',
-            [
-                RequestOptions::FORM_PARAMS => [
-                    'emailAddress' => $email,
-                    'password' => $password,
-                ],
-            ]
-        );
-
-        $contents = $response->getBody()->getContents();
-
-        $expected = \sprintf(
-            'Failed logging in "%s"!',
-            $email
-        );
-
-        Assert::assertContains($expected, $contents, \sprintf(
-            'Failed asserting that user "%s" cannot log in with password "%s".',
-            $email,
-            $password
+        Assert::assertFalse($user->login(
+            $this->container->verifyPassword(),
+            Password::fromString('password123')
         ));
     }
 
@@ -177,41 +108,5 @@ final class AuthenticationContext implements Context
                 \JSON_PRETTY_PRINT
             )
         );
-    }
-
-    /**
-     * @return User[]
-     */
-    private static function readUsers(): array
-    {
-        if (!\file_exists(self::usersFile())) {
-            return [];
-        }
-
-        $contents = \file_get_contents(self::usersFile());
-
-        if (false === $contents) {
-            return [];
-        }
-
-        $users = \json_decode($contents);
-
-        if (null === $users && \JSON_ERROR_NONE !== \json_last_error()) {
-            return [];
-        }
-
-        return $users;
-    }
-
-    private static function httpClient(): Client
-    {
-        if (null === self::$httpClient) {
-            self::$httpClient = new Client([
-                'base_uri' => 'http://localhost:8080',
-                'cookies' => true,
-            ]);
-        }
-
-        return self::$httpClient;
     }
 }
