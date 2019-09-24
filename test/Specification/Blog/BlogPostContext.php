@@ -12,7 +12,7 @@ final class BlogPostContext implements Context
     /**
      * @Given an authenticated user
      */
-    public function anAuthenticatedUser()
+    public function anAuthenticatedUser(): void
     {
         throw new PendingException();
     }
@@ -20,7 +20,7 @@ final class BlogPostContext implements Context
     /**
      * @When the user creates a new blog post
      */
-    public function theUserCreatesANewBlogPost()
+    public function theUserCreatesANewBlogPost(): void
     {
         throw new PendingException();
     }
@@ -28,7 +28,7 @@ final class BlogPostContext implements Context
     /**
      * @Then the blog post can be viewed
      */
-    public function theBlogPostCanBeViewed()
+    public function theBlogPostCanBeViewed(): void
     {
         throw new PendingException();
     }
@@ -36,7 +36,7 @@ final class BlogPostContext implements Context
     /**
      * @Then the blog post author corresponds to the user that created it
      */
-    public function theBlogPostAuthorCorrespondsToTheUserThatCreatedIt()
+    public function theBlogPostAuthorCorrespondsToTheUserThatCreatedIt(): void
     {
         throw new PendingException();
     }
@@ -44,7 +44,7 @@ final class BlogPostContext implements Context
     /**
      * @Given an authenticated user and an existing blog post by another user
      */
-    public function anAuthenticatedUserAndAnExistingBlogPostByAnotherUser()
+    public function anAuthenticatedUserAndAnExistingBlogPostByAnotherUser(): void
     {
         throw new PendingException();
     }
@@ -52,7 +52,7 @@ final class BlogPostContext implements Context
     /**
      * @When the user comments on the blog post
      */
-    public function theUserCommentsOnTheBlogPost()
+    public function theUserCommentsOnTheBlogPost(): void
     {
         throw new PendingException();
     }
@@ -60,7 +60,7 @@ final class BlogPostContext implements Context
     /**
      * @Then the blog post comment can be viewed
      */
-    public function theBlogPostCommentCanBeViewed()
+    public function theBlogPostCommentCanBeViewed(): void
     {
         throw new PendingException();
     }
@@ -68,7 +68,7 @@ final class BlogPostContext implements Context
     /**
      * @Given an authenticated user and an existing blog post by the same user
      */
-    public function anAuthenticatedUserAndAnExistingBlogPostByTheSameUser()
+    public function anAuthenticatedUserAndAnExistingBlogPostByTheSameUser(): void
     {
         throw new PendingException();
     }
@@ -76,7 +76,7 @@ final class BlogPostContext implements Context
     /**
      * @Then the user cannot comment on the blog post
      */
-    public function theUserCannotCommentOnTheBlogPost()
+    public function theUserCannotCommentOnTheBlogPost(): void
     {
         throw new PendingException();
     }
@@ -84,7 +84,7 @@ final class BlogPostContext implements Context
     /**
      * @Given an existing set of blog posts with comments
      */
-    public function anExistingSetOfBlogPostsWithComments()
+    public function anExistingSetOfBlogPostsWithComments(): void
     {
         throw new PendingException();
     }
@@ -92,7 +92,7 @@ final class BlogPostContext implements Context
     /**
      * @When I view the list of commented blog posts
      */
-    public function iViewTheListOfCommentedBlogPosts()
+    public function iViewTheListOfCommentedBlogPosts(): void
     {
         throw new PendingException();
     }
@@ -100,7 +100,7 @@ final class BlogPostContext implements Context
     /**
      * @Then the list of popular commented  blog posts should be sorted by comment count
      */
-    public function theListOfPopularCommentedBlogPostsShouldBeSortedByCommentCount()
+    public function theListOfPopularCommentedBlogPostsShouldBeSortedByCommentCount(): void
     {
         throw new PendingException();
     }
@@ -108,7 +108,7 @@ final class BlogPostContext implements Context
     /**
      * @Then the list of popular commented blog posts should be paginated
      */
-    public function theListOfPopularCommentedBlogPostsShouldBePaginated()
+    public function theListOfPopularCommentedBlogPostsShouldBePaginated(): void
     {
         throw new PendingException();
     }

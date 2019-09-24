@@ -12,7 +12,7 @@ final class AuthenticationContext implements Context
     /**
      * @Given there are no registered users
      */
-    public function thereAreNoRegisteredUsers()
+    public function thereAreNoRegisteredUsers(): void
     {
         throw new PendingException();
     }
@@ -20,7 +20,7 @@ final class AuthenticationContext implements Context
     /**
      * @When a user registers with the website
      */
-    public function aUserRegistersWithTheWebsite()
+    public function aUserRegistersWithTheWebsite(): void
     {
         throw new PendingException();
     }
@@ -28,7 +28,7 @@ final class AuthenticationContext implements Context
     /**
      * @Then the user can log into the website
      */
-    public function theUserCanLogIntoTheWebsite()
+    public function theUserCanLogIntoTheWebsite(): void
     {
         throw new PendingException();
     }
@@ -36,7 +36,7 @@ final class AuthenticationContext implements Context
     /**
      * @Given there is a registered user
      */
-    public function thereIsARegisteredUser()
+    public function thereIsARegisteredUser(): void
     {
         throw new PendingException();
     }
@@ -44,7 +44,7 @@ final class AuthenticationContext implements Context
     /**
      * @Then the user cannot log into the website with a non-matching password
      */
-    public function theUserCannotLogIntoTheWebsiteWithANonMatchingPassword()
+    public function theUserCannotLogIntoTheWebsiteWithANonMatchingPassword(): void
     {
         throw new PendingException();
     }

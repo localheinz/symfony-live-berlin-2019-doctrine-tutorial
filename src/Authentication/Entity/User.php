@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Authentication\Entity;
 
-class User
+final class User
 {
-    
 }

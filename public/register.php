@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // registering a new user:
 
 // 1. check if a user with the same email address exists

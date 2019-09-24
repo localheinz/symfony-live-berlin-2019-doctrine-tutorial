@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Doctrine\DBAL\Driver\PDOSqlite\Driver;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
@@ -14,7 +16,7 @@ $configuration = new Configuration();
 $configuration->setMetadataDriverImpl(new XmlDriver(__DIR__ . '/mapping'));
 
 // This is needed for Doctrine to generate files required for lazy-loading
-$configuration->setProxyDir(sys_get_temp_dir());
+$configuration->setProxyDir(\sys_get_temp_dir());
 $configuration->setProxyNamespace('ProxyExample');
 
 // We are telling Doctrine to always generate files required for lazy-loading. This is a slow operation,
@@ -25,7 +27,7 @@ $configuration->setAutoGenerateProxyClasses(ProxyFactory::AUTOGENERATE_ALWAYS);
 return EntityManager::create(
     [
         'driverClass' => Driver::class,
-        'path'        => __DIR__ . '/data/test-db.sqlite',
+        'path' => __DIR__ . '/data/test-db.sqlite',
     ],
     $configuration
 );

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // 1. fetch user by email
 // 2. compare user password hash against given password
 // 3. is the user banned? (optional)
