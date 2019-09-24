@@ -7,9 +7,11 @@ namespace Infrastructure;
 use Application\Container;
 use Application\Session;
 use Domain\Authentication\Repository\Users;
-use Domain\Authentication\Service\PasswordEncoder;
+use Domain\Authentication\Service\HashPassword;
+use Domain\Authentication\Service\VerifyPassword;
 use Infrastructure\Authentication\Repository\JsonFileUsers;
-use Infrastructure\Authentication\Service\DefaultPasswordEncoder;
+use Infrastructure\Authentication\Service\DefaultHashPassword;
+use Infrastructure\Authentication\Service\DefaultVerifyPassword;
 
 final class StaticContainer implements Container
 {
@@ -18,9 +20,14 @@ final class StaticContainer implements Container
         return new JsonFileUsers(__DIR__ . '/../../data/users.json');
     }
 
-    public function passwordEncoder(): PasswordEncoder
+    public function hashPassword(): HashPassword
     {
-        return new DefaultPasswordEncoder();
+        return new DefaultHashPassword();
+    }
+
+    public function verifyPassword(): VerifyPassword
+    {
+        return new DefaultVerifyPassword();
     }
 
     public function session(): Session

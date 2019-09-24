@@ -12,9 +12,9 @@ $password = $_POST['password'];
 
 $container = new StaticContainer();
 
-$passwordEncoder = $container->passwordEncoder();
+$hashPassword = $container->hashPassword();
 
-$passwordHash = $passwordEncoder->encode($password);
+$passwordHash = $hashPassword->encode($password);
 
 $users = $container->users();
 

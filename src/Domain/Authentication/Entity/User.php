@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Authentication\Entity;
 
-use Domain\Authentication\Service\PasswordEncoder;
+use Domain\Authentication\Service\VerifyPassword;
 
 final class User
 {
@@ -23,9 +23,9 @@ final class User
         return $this->email;
     }
 
-    public function equalsHashedPassword(string $password, PasswordEncoder $passwordEncoder): bool
+    public function equalsHashedPassword(string $password, VerifyPassword $verifyPassword): bool
     {
-        return $passwordEncoder->equals(
+        return $verifyPassword->equals(
             $password,
             $this->passwordHash
         );
