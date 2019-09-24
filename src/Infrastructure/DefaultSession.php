@@ -11,19 +11,19 @@ final class DefaultSession implements Session
 {
     public function authenticate(User $user): void
     {
-        $this->start();
+        self::start();
 
         $_SESSION['user'] = $user->email();
     }
 
     public function isAuthenticated(): bool
     {
-        $this->start();
+        self::start();
 
         return \array_key_exists('user', $_SESSION);
     }
 
-    private function start(): void
+    private static function start(): void
     {
         \session_start();
     }
