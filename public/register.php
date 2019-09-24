@@ -2,50 +2,33 @@
 
 declare(strict_types=1);
 
+use Authentication\Entity\User;
+use Authentication\Repository\JsonFileUsers;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $email = $_POST['emailAddress'];
 $password = $_POST['password'];
-
-$usersFile = __DIR__ . '/../data/users.json';
-
-if (!\file_exists($usersFile)) {
-    return;
-}
-
-$contents = \file_get_contents($usersFile);
-
-$users = [];
-
-if (\is_string($contents)) {
-    $users = \json_decode(
-        $contents,
-        true
-    );
-
-    if (null === $users && \JSON_ERROR_NONE !== \json_last_error()) {
-        $users = [];
-    }
-}
-
-if (\array_key_exists($email, $users)) {
-    echo 'Already registered';
-
-    return;
-}
 
 $passwordHash = \password_hash(
     $password,
     \PASSWORD_DEFAULT
 );
 
-$users[$email] = $passwordHash;
+$users = new JsonFileUsers(__DIR__ . '/../data/users.json');
 
-\file_put_contents(
-    $usersFile,
-    \json_encode(
-        $users,
-        \JSON_PRETTY_PRINT
-    )
+$user = new User(
+    $email,
+    $passwordHash
 );
+
+try {
+    $users->store($user);
+} catch (\RuntimeException $exception) {
+    echo 'Already registered';
+
+    return;
+}
 
 echo \sprintf(
     'Successfully registered as "%s"!',

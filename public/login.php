@@ -2,33 +2,24 @@
 
 declare(strict_types=1);
 
+use Authentication\Repository\JsonFileUsers;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $email = $_POST['emailAddress'];
 $password = $_POST['password'];
 
-$usersFile = __DIR__ . '/../data/users.json';
+$users = new JsonFileUsers(__DIR__ . '/../data/users.json');
 
-if (!\file_exists($usersFile)) {
-    return;
-}
-
-$contents = \file_get_contents($usersFile);
-
-if (false === $contents) {
-    return;
-}
-
-$users = \json_decode(
-    $contents,
-    true
-);
-
-if (!\array_key_exists($email, $users)) {
+try {
+    $user = $users->get($email);
+} catch (\RuntimeException $exception) {
     echo 'Login failed';
 
     return;
 }
 
-if (!\password_verify($password, $users[$email])) {
+if (!\password_verify($password, $user->passwordHash())) {
     echo 'Login failed';
 
     return;
