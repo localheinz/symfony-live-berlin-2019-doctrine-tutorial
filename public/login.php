@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-use Infrastructure\Authentication\Repository\JsonFileUsers;
 use Infrastructure\Authentication\Service\DefaultPasswordEncoder;
+use Infrastructure\StaticContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $email = $_POST['emailAddress'];
 $password = $_POST['password'];
 
-$users = new JsonFileUsers(__DIR__ . '/../data/users.json');
+$container = new StaticContainer();
+
+$users = $container->users();
 
 if (!$users->isRegistered($email)) {
     echo \sprintf(
