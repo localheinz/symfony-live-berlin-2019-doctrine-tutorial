@@ -16,6 +16,11 @@ use Psr\Http\Message\ResponseInterface;
 final class AuthenticationContext implements Context
 {
     /**
+     * @var null|ClientInterface
+     */
+    private static $httpClient;
+
+    /**
      * @Given there are no registered users
      */
     public function thereAreNoRegisteredUsers(): void
@@ -74,6 +79,24 @@ final class AuthenticationContext implements Context
                 ],
             ]
         );
+
+        $contents = $response->getBody()->getContents();
+
+        $expected = \sprintf(
+            'Successfully logged in as "%s"!',
+            $email
+        );
+
+        Assert::assertContains($expected, $contents, \sprintf(
+            'Failed asserting that user "%s" can log in with password "%s".',
+            $email,
+            $password
+        ));
+
+        $email = 'user@example.com';
+
+        /** @var ResponseInterface $response */
+        $response = self::httpClient()->get('/index.php');
 
         $contents = $response->getBody()->getContents();
 
@@ -147,8 +170,13 @@ final class AuthenticationContext implements Context
 
     private static function httpClient(): ClientInterface
     {
-        return new Client([
-            'base_uri' => 'http://localhost:8080',
-        ]);
+        if (null === self::$httpClient) {
+            self::$httpClient = new Client([
+                'base_uri' => 'http://localhost:8080',
+                'cookies' => true,
+            ]);
+        }
+
+        return self::$httpClient;
     }
 }
