@@ -20,5 +20,5 @@ try {
 
 echo \sprintf(
     'Successfully logged in as "%s"!',
-    $user->email()->value()
+    $user->email()->asString()
 );

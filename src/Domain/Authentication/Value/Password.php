@@ -30,9 +30,9 @@ final class Password
         return new self($value);
     }
 
-    public function toHash(callable $toHash): PasswordHash
+    public function asHash(callable $asHash): PasswordHash
     {
-        return $toHash($this->value);
+        return $asHash($this->value);
     }
 
     public function verify(callable $verify): bool

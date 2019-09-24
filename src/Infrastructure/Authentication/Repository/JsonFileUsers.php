@@ -22,24 +22,24 @@ final class JsonFileUsers implements Users
     {
         $users = $this->loadUsersFromFile();
 
-        if (!\array_key_exists($email->value(), $users)) {
+        if (!\array_key_exists($email->asString(), $users)) {
             throw new \RuntimeException(\sprintf(
                 'User "%s" was not found.',
-                $email->value()
+                $email->asString()
             ));
         }
 
-        return $users[$email->value()];
+        return $users[$email->asString()];
     }
 
     public function store(User $user): void
     {
         $users = $this->loadUsersFromFile();
 
-        if (\array_key_exists($user->email()->value(), $users)) {
+        if (\array_key_exists($user->email()->asString(), $users)) {
             throw new \RuntimeException(\sprintf(
                 'User with email "%s" is already registered.',
-                $user->email()->value()
+                $user->email()->asString()
             ));
         }
 
@@ -84,7 +84,7 @@ final class JsonFileUsers implements Users
     {
         $data = \array_combine(
             \array_map(static function (User $user): string {
-                return $user->email()->value();
+                return $user->email()->asString();
             }, $users),
             \array_map(static function (User $user): array {
                 return $user->toArray();

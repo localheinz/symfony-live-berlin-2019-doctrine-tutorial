@@ -30,7 +30,7 @@ final class PasswordHash
         return new self($value);
     }
 
-    public function value(): string
+    public function asString(): string
     {
         return $this->value;
     }

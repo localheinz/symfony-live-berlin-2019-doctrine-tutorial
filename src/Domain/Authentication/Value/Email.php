@@ -30,7 +30,7 @@ final class Email
         return new self($value);
     }
 
-    public function value(): string
+    public function asString(): string
     {
         return $this->value;
     }

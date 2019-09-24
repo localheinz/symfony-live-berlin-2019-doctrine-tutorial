@@ -32,7 +32,7 @@ final class User
         if ($isUserRegistered($email)) {
             throw new \RuntimeException(\sprintf(
                 'User with email "%s" has already been registered.',
-                $email->value()
+                $email->asString()
             ));
         }
 
@@ -66,8 +66,8 @@ final class User
     public function toArray(): array
     {
         return [
-            'email' => $this->email->value(),
-            'passwordHash' => $this->passwordHash->value(),
+            'email' => $this->email->asString(),
+            'passwordHash' => $this->passwordHash->asString(),
         ];
     }
 }

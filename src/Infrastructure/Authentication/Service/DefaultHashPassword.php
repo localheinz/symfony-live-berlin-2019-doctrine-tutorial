@@ -12,7 +12,7 @@ final class DefaultHashPassword implements HashPassword
 {
     public function __invoke(Password $password): PasswordHash
     {
-        return $password->toHash(static function (string $value): PasswordHash {
+        return $password->asHash(static function (string $value): PasswordHash {
             $hashedValue = \password_hash(
                 $value,
                 \PASSWORD_DEFAULT

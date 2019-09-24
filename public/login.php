@@ -18,7 +18,7 @@ try {
 } catch (\Exception $exception) {
     echo \sprintf(
         'Failed logging in "%s"!',
-        $email->value()
+        $email->asString()
     );
 
     return;
@@ -27,7 +27,7 @@ try {
 if (!$user->login($container->verifyPassword(), $password)) {
     echo \sprintf(
         'Failed logging in "%s"!',
-        $email->value()
+        $email->asString()
     );
 
     return;
@@ -37,5 +37,5 @@ $container->session()->authenticate($user);
 
 echo \sprintf(
     'Successfully logged in as "%s"!',
-    $user->email()->value()
+    $user->email()->asString()
 );

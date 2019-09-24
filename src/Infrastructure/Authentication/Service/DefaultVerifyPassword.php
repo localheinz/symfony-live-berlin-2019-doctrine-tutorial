@@ -15,7 +15,7 @@ final class DefaultVerifyPassword implements VerifyPassword
         return $password->verify(static function (string $value) use ($passwordHash): bool {
             return \password_verify(
                 $value,
-                $passwordHash->value()
+                $passwordHash->asString()
             );
         });
     }

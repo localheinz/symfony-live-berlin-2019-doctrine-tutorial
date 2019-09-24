@@ -31,5 +31,5 @@ $container->users()->store($user);
 
 echo \sprintf(
     'Successfully registered as "%s"!',
-    $user->email()->value()
+    $user->email()->asString()
 );
