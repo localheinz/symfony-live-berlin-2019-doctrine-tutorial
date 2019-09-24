@@ -7,7 +7,6 @@ namespace Test\Specification\Authentication;
 use Behat\Behat\Context\Context;
 use Domain\Authentication\Aggregate\User;
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use PHPUnit\Framework\Assert;
 use Psr\Http\Message\ResponseInterface;
@@ -15,7 +14,7 @@ use Psr\Http\Message\ResponseInterface;
 final class AuthenticationContext implements Context
 {
     /**
-     * @var null|ClientInterface
+     * @var null|Client
      */
     private static $httpClient;
 
