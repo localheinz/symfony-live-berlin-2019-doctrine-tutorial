@@ -14,7 +14,7 @@ final class AuthenticationContext implements Context
      */
     public function thereAreNoRegisteredUsers(): void
     {
-        throw new PendingException();
+        self::writeUsers([]);
     }
 
     /**
@@ -47,5 +47,18 @@ final class AuthenticationContext implements Context
     public function theUserCannotLogIntoTheWebsiteWithANonMatchingPassword(): void
     {
         throw new PendingException();
+    }
+
+    private static function usersFile(): string
+    {
+        return __DIR__ . '/../../../data/users.txt';
+    }
+
+    private static function writeUsers(array $users): void
+    {
+        \file_put_contents(
+            self::usersFile(),
+            \serialize($users)
+        );
     }
 }
