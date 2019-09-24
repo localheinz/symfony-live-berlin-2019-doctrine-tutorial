@@ -17,18 +17,18 @@ $passwordHash = \password_hash(
 
 $users = new JsonFileUsers(__DIR__ . '/../data/users.json');
 
+if ($users->isRegistered($email)) {
+    echo 'Already registered';
+
+    return;
+}
+
 $user = new User(
     $email,
     $passwordHash
 );
 
-try {
-    $users->store($user);
-} catch (\RuntimeException $exception) {
-    echo 'Already registered';
-
-    return;
-}
+$users->store($user);
 
 echo \sprintf(
     'Successfully registered as "%s"!',

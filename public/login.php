@@ -11,13 +11,13 @@ $password = $_POST['password'];
 
 $users = new JsonFileUsers(__DIR__ . '/../data/users.json');
 
-try {
-    $user = $users->get($email);
-} catch (\RuntimeException $exception) {
+if (!$users->isRegistered($email)) {
     echo 'Login failed';
 
     return;
 }
+
+$user = $users->get($email);
 
 if (!\password_verify($password, $user->passwordHash())) {
     echo 'Login failed';
