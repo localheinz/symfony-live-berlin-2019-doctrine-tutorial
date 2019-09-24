@@ -4,6 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping ../vendor/doctrine/orm/doctrine-mapping.xsd"
 >
-    <entity name="Authentication\Entity\User" table="users">
+    <entity name="Domain\Authentication\Aggregate\User" table="users">
+        <id name="email" type="Domain\Authentication\Value\Email"/>
+        <field name="passwordHash" type="Domain\Authentication\Value\PasswordHash"/>
     </entity>
 </doctrine-mapping>

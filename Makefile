@@ -1,10 +1,15 @@
-.PHONY: cs help it layer run stan test
+.PHONY: cs doctrine help it layer run stan test
 
-it: cs layer stan test  ## Runs the cs, layer, stan, and test targets
+it: cs layer doctrine stan test ## Runs the cs, layer, doctrine, stan, and test targets
 
 cs: vendor ## Fixes code style issues with php-cs-fixer
 	mkdir -p .build/php-cs-fixer
 	vendor/bin/php-cs-fixer fix --config=.php_cs --diff --diff-format=udiff --verbose
+
+doctrine: ## Runs Doctrine commands
+	vendor/bin/doctrine orm:info
+	vendor/bin/doctrine orm:schema-tool:update --force
+	vendor/bin/doctrine orm:validate-schema --skip-sync
 
 help: ## Displays this list of targets with descriptions
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'

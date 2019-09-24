@@ -6,6 +6,8 @@ includes:
 	- vendor/phpstan/phpstan/conf/config.levelmax.neon
 
 parameters:
+	classesAllowedToBeExtended:
+		- Doctrine\DBAL\Types\StringType
 	inferPrivatePropertyTypeFromConstructor: true
 	paths:
 		- src
