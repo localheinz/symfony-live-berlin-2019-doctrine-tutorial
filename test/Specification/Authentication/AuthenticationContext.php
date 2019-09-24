@@ -25,7 +25,10 @@ final class AuthenticationContext implements Context
     {
         $users = self::readUsers();
 
-        $users[] = new Entity\User('user@example.com');
+        $users[] = new Entity\User(
+            'user@example.com',
+            'super-secret-password'
+        );
 
         self::writeUsers($users);
     }

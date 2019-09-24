@@ -22,9 +22,14 @@ final class UserTest extends Framework\TestCase
         $faker = self::faker();
 
         $email = $faker->email;
+        $password = $faker->sha1;
 
-        $user = new User($email);
+        $user = new User(
+            $email,
+            $password
+        );
 
         self::assertSame($email, $user->email());
+        self::assertSame($password, $user->password());
     }
 }
