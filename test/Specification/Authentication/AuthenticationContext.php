@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Test\Specification\Authentication;
 
 use Behat\Behat\Context\Context;
-use Domain\Authentication\Entity\User;
+use Domain\Authentication\Aggregate\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
