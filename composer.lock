@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0bdadfc92dca9d71faf897f65f22c370",
+    "content-hash": "943e52325500eca8e420b6e08230e4c9",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2104,6 +2104,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-04-11T04:50:36+00:00"
         },
         {

@@ -7,4 +7,5 @@ help: ## Displays this list of targets with descriptions
 
 vendor: composer.json composer.lock ## Installs dependencies with composer
 	composer validate --strict
+	composer normalize
 	composer install --no-interaction --no-progress --no-suggest
