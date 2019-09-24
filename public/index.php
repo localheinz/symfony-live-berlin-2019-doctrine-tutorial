@@ -12,7 +12,7 @@ $session = $container->session();
 
 $session->start();
 
-if (!\array_key_exists('user', $_SESSION)) {
+if (!$session->isAuthenticated()) {
     echo 'You are currently not logged in.';
 
     return;

@@ -18,4 +18,9 @@ final class DefaultSession implements Session
     {
         $_SESSION['user'] = $user->email();
     }
+
+    public function isAuthenticated(): bool
+    {
+        return \array_key_exists('user', $_SESSION);
+    }
 }
